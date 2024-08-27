@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chillspace</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: url('background.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-align: center;
+        }
+        header {
+            padding: 20px;
+        }
+        img {
+            max-width: 150px;
+            margin-top: 20px;
+        }
+        .song-section {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            margin: 30px auto;
+            width: 80%;
+            border-radius: 15px;
+            text-align: left;
+        }
+        pre {
+            font-size: 1.2em;
+            margin: 0;
+        }
+        .chord {
+            color: orange; /* Color para el acorde */
+        }
+        .chord-alternate {
+            color: lightblue; /* Color alternativo para el acorde */
+        }
+        .controls {
+            margin: 10px 0;
+        }
+        .scroll-button, .color-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .color-button {
+            background-color: #2196F3; /* Azul para el botón de color de acordes */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="Chillspace Logo">
+        <h1>Chillspace - Música que Inspira</h1>
+    </header>
+
+    <section class="song-section">
+        <h2>Fuji - Luis Alberto Spinetta</h2>
+        <pre>
+            [Intro]
+            [D] [A] [Bm] [G]
+            
+            [Verse 1]
+            [D]           [A]
+            Y cuando la noche se ha ido
+            [Bm]           [G]
+            Todo se transforma en destellos
+            [D]           [A]
+            La vida se vuelve un suspiro
+            [Bm]           [G]
+            Y el tiempo se convierte en misterio
+            
+            [Chorus]
+            [G]           [D]
+            Fuji, tu nombre es como un eco
+            [Bm]           [A]
+            En la brisa que va creciendo
+            [G]           [D]
+            Fuji, en tus ojos veo el cielo
+            [Bm]           [A]
+            Reflejando todo lo que soñé
+            
+            [Verse 2]
+            [D]           [A]
+            Recuerdos de tiempos pasados
+            [Bm]           [G]
+            Flotan en el aire como hojas
+            [D]           [A]
+            El pasado se vuelve presente
+            [Bm]           [G]
+            Y el futuro se convierte en sueño
+            
+            [Chorus]
+            [G]           [D]
+            Fuji, tu nombre es como un eco
+            [Bm]           [A]
+            En la brisa que va creciendo
+            [G]           [D]
+            Fuji, en tus ojos veo el cielo
+            [Bm]           [A]
+            Reflejando todo lo que soñé
+            
+            [Bridge]
+            [D]           [A]
+            Y mientras la luna va cambiando
+            [Bm]           [G]
+            Y las estrellas se van apagando
+            [D]           [A]
+            Yo sigo esperando, soñando
+            [Bm]           [G]
+            Que el tiempo no se esté acabando
+            
+            [Chorus]
+            [G]           [D]
+            Fuji, tu nombre es como un eco
+            [Bm]           [A]
+            En la brisa que va creciendo
+            [G]           [D]
+            Fuji, en tus ojos veo el cielo
+            [Bm]           [A]
+            Reflejando todo lo que soñé
+            
+            [Outro]
+            [D] [A] [Bm] [G]
+            [D] [A] [Bm] [G]
+        </pre>
+        <div class="controls">
+            <label for="speed">Velocidad de desplazamiento:</label>
+            <select id="speed" class="scroll-button">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <button class="scroll-button" onclick="startScrolling()">Desplazar hacia abajo</button>
+            <button class="scroll-button" onclick="stopScrolling()">Detener desplazamiento</button>
+            <button class="color-button" onclick="changeChordColor()">Cambiar color de acordes</button>
+        </div>
+    </section>
+
+    <script>
+        let scrollInterval;
+        let chordColor = 'orange'; // Color actual de los acordes
+
+        function startScrolling() {
+            const speed = document.getElementById('speed').value;
+            scrollInterval = setInterval(() => window.scrollBy(0, 1 * speed), 100);
+        }
+
+        function stopScrolling() {
+            clearInterval(scrollInterval);
+        }
+
+        function changeChordColor() {
+            const chordsElements = document.querySelectorAll('.chord');
+            chordsElements.forEach((element) => {
+                element.style.color = element.style.color === 'orange' ? 'lightblue' : 'orange';
+            });
+        }
+    </script>
+</body>
+</html>
