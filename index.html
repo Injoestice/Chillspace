@@ -13,7 +13,7 @@
             color: white;
             margin: 0;
             padding: 0;
-            overflow: auto;
+            overflow: hidden;
         }
         header {
             padding: 20px;
@@ -25,8 +25,7 @@
             margin-top: 20px;
         }
         .song-section {
-            background-color: rgba(255, 255, 255, 0.9); /* White pastel background for readability */
-            color: black;
+            background-color: rgba(0, 0, 0, 0.7);
             padding: 20px;
             margin: 30px auto;
             width: 80%;
@@ -41,22 +40,47 @@
         .chords {
             font-weight: bold;
             color: #00bcd4; /* Default chord color */
+            margin-right: 5px; /* Space between chords */
         }
         .controls, .player {
             display: flex;
             justify-content: center;
             gap: 10px;
-            position: absolute;
+            position: fixed;
             bottom: 20px;
-            width: 80%;
-            left: 10%;
             z-index: 1000;
         }
         .controls {
-            justify-content: flex-end;
-            flex-direction: column;
-            width: auto;
-            padding-right: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .player {
+            width: 100%;
+            max-width: 600px;
+        }
+        .player iframe {
+            width: 100%;
+            border: none;
+            height: 60px;
+            max-width: 300px;
+        }
+        .fixed-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 800px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+        .controls-container {
+            display: flex;
+            align-items: center;
         }
         .speed-button {
             background-color: black;
@@ -94,30 +118,6 @@
             cursor: pointer;
             display: inline-block;
         }
-        .player {
-            flex-direction: row;
-            align-items: center;
-            justify-content: flex-start;
-        }
-        .player iframe {
-            width: 300px;
-            height: 50px;
-            border: none;
-        }
-        .fixed-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            z-index: 1000;
-        }
-        .fixed-container .controls {
-            margin: 0;
-        }
     </style>
 </head>
 <body>
@@ -129,8 +129,8 @@
     <section class="song-section">
         <h2>Fuji - Luis Alberto Spinetta</h2>
         <div class="lyrics">
-            <p><span class="chords">G</span> <span class="chords">C</span> <span class="chords">G</span> <span class="chords">C</span> <span class="chords">G</span></p>
-            <p><strong>Estrofa:</strong></p>
+            <p><span class="chords">G</span> <span class="chords">C</span> <span class="
+<p><span class="chords">G</span> <span class="chords">C</span> <span class="chords">G</span> <span class="chords">C</span> <span class="chords">G</span></p>
             <p>Hoy me voy a ir</p>
             <p>buscando un lugar donde descansar</p>
             <p>Dejo todo atrás</p>
@@ -142,7 +142,6 @@
             <p><span class="chords">D</span> <span class="chords">Em</span> <span class="chords">C</span></p>
             <p>y sentir el sol en mi piel</p>
             <p><span class="chords">G</span> <span class="chords">C</span> <span class="chords">G</span></p>
-            <p><strong>Coro:</strong></p>
             <p>Hoy me voy a ir</p>
             <p>buscando un lugar donde descansar</p>
             <p>Dejo todo atrás</p>
@@ -154,7 +153,6 @@
             <p><span class="chords">D</span> <span class="chords">Em</span> <span class="chords">C</span></p>
             <p>y sentir el sol en mi piel</p>
             <p><span class="chords">G</span> <span class="chords">C</span> <span class="chords">G</span></p>
-            <p><strong>Estrofa:</strong></p>
             <p>Hoy me voy a ir</p>
             <p>buscando un lugar donde descansar</p>
         </div>
@@ -162,9 +160,9 @@
 
     <div class="fixed-container">
         <div class="player">
-            <iframe src="https://www.youtube.com/embed/BO8dTUJy5nc?controls=1&autoplay=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/BO8dTUJy5nc?controls=1&showinfo=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
-        <div class="controls">
+        <div class="controls-container">
             <button class="speed-button" data-speed="1">1x</button>
             <button class="speed-button" data-speed="2">2x</button>
             <button class="speed-button" data-speed="3">3x</button>
@@ -220,14 +218,12 @@
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.speed-button').forEach(button => {
                 button.addEventListener('click', () => {
-                    const speed = parseFloat(button.getAttribute('data-speed'));
-                    if (isScrolling) {
-                        stopScrolling();
-                        button.textContent = `${
-        button.textContent = `${speed}x`;
-                    } else {
+                    const speed = button.dataset.speed;
+                    if (speed) {
+                        if (isScrolling) stopScrolling();
                         setScrollSpeed(speed);
-                        button.textContent = `Stop ${speed}x`;
+                    } else {
+                        toggleDropdown();
                     }
                 });
             });
