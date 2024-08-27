@@ -8,12 +8,12 @@
     <style>
         body {
             font-family: 'Lexend', sans-serif;
-            background: url('logo.png') no-repeat center center fixed;
+            background: url('background.png') no-repeat center center fixed;
             background-size: cover;
             color: white;
             margin: 0;
             padding: 0;
-            overflow: auto; /* Permite el desplazamiento libre */
+            overflow: auto;
         }
         header {
             padding: 20px;
@@ -25,7 +25,8 @@
             margin-top: 20px;
         }
         .song-section {
-            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco pastel */
+            background-color: rgba(255, 255, 255, 0.9); /* White pastel background for readability */
+            color: black;
             padding: 20px;
             margin: 30px auto;
             width: 80%;
@@ -33,7 +34,6 @@
             position: relative;
             text-align: left;
             overflow: hidden;
-            color: black;
         }
         .lyrics {
             margin-bottom: 20px;
@@ -41,16 +41,24 @@
         .chords {
             font-weight: bold;
             color: #00bcd4; /* Default chord color */
-            display: inline-block;
-            margin-right: 5px;
         }
-        .controls {
+        .controls, .player {
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-top: 20px;
+            position: absolute;
+            bottom: 20px;
+            width: 80%;
+            left: 10%;
+            z-index: 1000;
         }
-        .controls button {
+        .controls {
+            justify-content: flex-end;
+            flex-direction: column;
+            width: auto;
+            padding-right: 20px;
+        }
+        .speed-button {
             background-color: black;
             color: white;
             border: none;
@@ -58,7 +66,7 @@
             cursor: pointer;
             border-radius: 5px;
         }
-        .controls button.active {
+        .speed-button.active {
             background-color: white;
             color: black;
         }
@@ -86,27 +94,29 @@
             cursor: pointer;
             display: inline-block;
         }
+        .player {
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .player iframe {
+            width: 300px;
+            height: 50px;
+            border: none;
+        }
         .fixed-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             position: fixed;
             bottom: 0;
             width: 100%;
             background-color: rgba(0, 0, 0, 0.7);
-            text-align: center;
             padding: 10px;
             z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
-        .player {
-            width: 70%;
-            margin: 0 auto;
-        }
-        .player iframe {
-            width: 100%;
-            border: none;
-            height: 50px;
-            max-width: 300px;
+        .fixed-container .controls {
+            margin: 0;
         }
     </style>
 </head>
@@ -119,8 +129,8 @@
     <section class="song-section">
         <h2>Fuji - Luis Alberto Spinetta</h2>
         <div class="lyrics">
-            <p><strong>Estrofa:</strong></p>
             <p><span class="chords">G</span> <span class="chords">C</span> <span class="chords">G</span> <span class="chords">C</span> <span class="chords">G</span></p>
+            <p><strong>Estrofa:</strong></p>
             <p>Hoy me voy a ir</p>
             <p>buscando un lugar donde descansar</p>
             <p>Dejo todo atrás</p>
@@ -144,6 +154,7 @@
             <p><span class="chords">D</span> <span class="chords">Em</span> <span class="chords">C</span></p>
             <p>y sentir el sol en mi piel</p>
             <p><span class="chords">G</span> <span class="chords">C</span> <span class="chords">G</span></p>
+            <p><strong>Estrofa:</strong></p>
             <p>Hoy me voy a ir</p>
             <p>buscando un lugar donde descansar</p>
         </div>
@@ -151,7 +162,7 @@
 
     <div class="fixed-container">
         <div class="player">
-            <iframe src="https://www.youtube.com/embed/BO8dTUJy5nc?si=O75rCXxv9ojQBN-o" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/BO8dTUJy5nc?controls=1&autoplay=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
         <div class="controls">
             <button class="speed-button" data-speed="1">1x</button>
@@ -203,8 +214,7 @@
 
         function toggleDropdown() {
             const dropdown = document.getElementById('color-dropdown');
-            dropdown.style.display = dropdown.style.display === 'block'
-        ? 'none' : 'block';
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -213,22 +223,21 @@
                     const speed = parseFloat(button.getAttribute('data-speed'));
                     if (isScrolling) {
                         stopScrolling();
-                        button.textContent = `${speed}x`;
+                        button.textContent = `${
+        button.textContent = `${speed}x`;
                     } else {
                         setScrollSpeed(speed);
-                        button.textContent = `Stop`;
+                        button.textContent = `Stop ${speed}x`;
                     }
                 });
             });
 
             document.getElementById('color-dropdown-btn').addEventListener('click', toggleDropdown);
-            document.querySelectorAll('.color-box').forEach(box => {
-                box.addEventListener('click', () => {
-                    document.querySelectorAll('.color-box').forEach(c => c.classList.remove('selected'));
-                    box.classList.add('selected');
-                    changeChordColor(box.style.backgroundColor);
-                });
-            });
+
+            // Adjust iframe size and hide extra controls
+            const iframe = document.querySelector('iframe');
+            iframe.setAttribute('allow', 'autoplay; encrypted-media');
+            iframe.setAttribute('controls', '0');
         });
     </script>
 </body>
