@@ -8,200 +8,217 @@
     <style>
         body {
             font-family: 'Lexend', sans-serif;
-            background: url('background.png') no-repeat center center fixed;
+            background: url('logo.png') no-repeat center center fixed;
             background-size: cover;
             color: white;
             margin: 0;
             padding: 0;
+            overflow: hidden;
         }
         header {
             padding: 20px;
             text-align: center;
+            background: rgba(0, 0, 0, 0.7);
         }
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
+        img {
+            max-width: 150px;
+            margin-top: 20px;
         }
         .song-section {
             background-color: rgba(0, 0, 0, 0.7);
             padding: 20px;
+            margin: 30px auto;
             width: 80%;
             border-radius: 15px;
-            margin-bottom: 100px; /* Espacio para los botones fijos */
-            text-align: center;
             position: relative;
+            text-align: left;
+            overflow: hidden;
         }
         .lyrics {
-            margin: 20px 0;
-            white-space: pre-wrap; /* Mantener los espacios y saltos de línea */
-        }
-        .chords {
-            font-weight: bold; /* Acordes en negrita */
-            color: lightblue; /* Color predeterminado para acordes */
             margin-bottom: 20px;
         }
-        .color-button, .speed-button, .stop-button {
+        .chords {
+            font-weight: bold;
+            color: #00bcd4; /* Default chord color */
+        }
+        .controls, .player {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            position: fixed;
+            width: 80%;
+            left: 10%;
+            z-index: 1000;
+        }
+        .controls {
+            top: 20px;
+        }
+        .speed-button {
             background-color: black;
             color: white;
             border: none;
             padding: 10px;
             cursor: pointer;
-            margin: 5px;
             border-radius: 5px;
         }
-        .color-menu, .speed-menu {
-            margin-bottom: 10px;
+        .speed-button.active {
+            background-color: white;
+            color: black;
         }
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            background-color: #333;
-            color: white;
-            border-radius: 5px;
-            padding: 5px;
-        }
-        .dropdown-menu button {
-            background: none;
-            border: none;
-            color: white;
-            padding: 5px;
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #ccc;
             cursor: pointer;
         }
-        .dropdown-menu button:hover {
-            background-color: #575757;
+        .color-box.selected {
+            border: 2px solid black;
         }
-        .fixed-buttons {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: rgba(0, 0, 0, 0.8);
+        #color-dropdown {
+            display: none;
+            position: absolute;
+            background-color: #fff;
             padding: 10px;
-            border-radius: 10px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #color-dropdown div {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .player {
+            bottom: 60px;
+        }
+        .player iframe {
+            width: 100%;
+            border: none;
+            height: 50px;
+            max-width: 300px;
+        }
+        .fixed-container {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            text-align: center;
+            padding: 10px;
+            z-index: 1000;
         }
     </style>
 </head>
 <body>
     <header>
-        <img src="logo.png" alt="Chillspace Logo" style="max-width: 150px;">
+        <img src="logo.png" alt="Chillspace Logo">
         <h1>Chillspace - Música que Inspira</h1>
     </header>
 
-    <div class="container">
-        <section class="song-section">
-            <h2>Fuji de Spinetta</h2>
-            <div class="chords">
-                <!-- Acordes con color dinámico -->
-                <span id="chords">[G] [D] [Em] [C] [Am] [F] [B7]</span>
-            </div>
-            <div class="lyrics">
-                <!-- Letra completa de la canción Fuji -->
-                <pre>
-Intro:
-[G] [D] [Em] [C]
-
-Verso 1:
-[G]               [D]                [Em]          [C]
-Cuando se va la luz del sol de mi ventana
-[G]               [D]                [Em]          [C]
-Un mar de sombras se expande
-[Am]          [F]        [G]              [C]
-Y yo me quedo aquí, sin poder verte
-[Am]           [F]           [B7]          [Em]
-Aunque intente olvidar
-
-Estribillo:
-[G]             [D]                [Em]          [C]
-Aunque intente olvidar, aunque intente olvidar
-[G]             [D]                [Em]          [C]
-La luna alumbra más que el sol
-
-Verso 2:
-[Am]           [F]             [G]            [C]
-La luna, luna, la luna alumbra más que el sol
-[Am]           [F]              [B7]        [Em]
-La luna, luna, la luna
-[G]             [D]                [Em]          [C]
-Aunque intente olvidar
-
-Puente:
-[Am]           [F]           [G]        [C]
-Si me preguntas, yo te diré
-[Am]           [F]          [B7]     [Em]
-Que aquí estoy esperando
-[Am]           [F]           [G]        [C]
-Si me preguntas, yo te diré
-[Am]           [F]         [B7]      [Em]
-Que aquí estoy esperando
-
-Estribillo:
-[G]             [D]                [Em]          [C]
-Aunque intente olvidar, aunque intente olvidar
-[G]             [D]                [Em]          [C]
-La luna alumbra más que el sol
-[Am]           [F]           [G]        [C]
-La luna, luna, la luna
-                </pre>
-            </div>
-        </section>
-
-        <div class="fixed-buttons">
-            <div class="color-menu">
-                <button class="color-button" onclick="toggleDropdown('color')">Cambiar Color de Acordes</button>
-                <div id="color-dropdown" class="dropdown-menu">
-                    <button onclick="changeColor('lightblue')">Celeste</button>
-                    <button onclick="changeColor('orange')">Naranja</button>
-                    <button onclick="changeColor('green')">Verde</button>
-                    <button onclick="changeColor('brown')">Café</button>
-                </div>
-            </div>
-            <div class="speed-menu">
-                <button class="speed-button" onclick="toggleDropdown('speed')">Configurar Velocidad</button>
-                <div id="speed-dropdown" class="dropdown-menu">
-                    <button onclick="setSpeed(10)">1</button>
-                    <button onclick="setSpeed(7.5)">2</button>
-                    <button onclick="setSpeed(5)">3</button>
-                    <button onclick="setSpeed(2.5)">4</button>
-                    <button onclick="setSpeed(1)">5</button>
-                </div>
-            </div>
-            <button class="stop-button" onclick="stopScrolling()">Detener</button>
+    <section class="song-section">
+        <h2>Fuji - Luis Alberto Spinetta</h2>
+        <div class="lyrics">
+            <p><span class="chords">G</span> <span class="chords">C</span> <span class="chords">G</span> <span class="chords">C</span> <span class="chords">G</span></p>
+            <p>Hoy me voy a ir</p>
+            <p>buscando un lugar donde descansar</p>
+            <p>Dejo todo atrás</p>
+            <p><span class="chords">G</span> <span class="chords">C</span></p>
+            <p>y me voy a dejar llevar</p>
+            <p>por el viento que me lleva al mar</p>
+            <p><span class="chords">G</span> <span class="chords">C</span></p>
+            <p>Voy a ver el cielo</p>
+            <p><span class="chords">D</span> <span class="chords">Em</span> <span class="chords">C</span></p>
+            <p>y sentir el sol en mi piel</p>
+            <p><span class="chords">G</span> <span class="chords">C</span> <span class="chords">G</span></p>
+            <p>Hoy me voy a ir</p>
+            <p>buscando un lugar donde descansar</p>
+            <p>Dejo todo atrás</p>
+            <p><span class="chords">G</span> <span class="chords">C</span></p>
+            <p>y me voy a dejar llevar</p>
+            <p>por el viento que me lleva al mar</p>
+            <p><span class="chords">G</span> <span class="chords">C</span></p>
+            <p>Voy a ver el cielo</p>
+            <p><span class="chords">D</span> <span class="chords">Em</span> <span class="chords">C</span></p>
+            <p>y sentir el sol en mi piel</p>
+            <p><span class="chords">G</span> <span class="chords">C</span> <span class="chords">G</span></p>
+            <p>Hoy me voy a ir</p>
+            <p>buscando un lugar donde descansar</p>
         </div>
+    </section>
+
+    <div class="controls">
+        <button class="speed-button" data-speed="1">1x</button>
+        <button class="speed-button" data-speed="2">2x</button>
+        <button class="speed-button" data-speed="3">3x</button>
+        <button id="color-dropdown-btn" class="speed-button">Color Acordes</button>
+        <div id="color-dropdown">
+            <div style="background-color: #00bcd4;" onclick="changeChordColor('#00bcd4')"></div>
+            <div style="background-color: #ff5722;" onclick="changeChordColor('#ff5722')"></div>
+            <div style="background-color: #4caf50;" onclick="changeChordColor('#4caf50')"></div>
+            <div style="background-color: #795548;" onclick="changeChordColor('#795548')"></div>
+        </div>
+    </div>
+
+    <div class="fixed-container">
+        <iframe src="https://www.youtube.com/embed/BO8dTUJy5nc?si=O75rCXxv9ojQBN-o" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
 
     <script>
         let scrollInterval;
-        let speed = 5; // Valor por defecto para la velocidad
+        let scrollSpeed = 1;
+        let isScrolling = false;
+
+        function setScrollSpeed(speed) {
+            scrollSpeed = speed;
+            document.querySelectorAll('.speed-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`.speed-button[data-speed="${speed}"]`).classList.add('active');
+            startScrolling();
+        }
 
         function startScrolling() {
-            scrollInterval = setInterval(() => window.scrollBy(0, speed), 50);
+            if (scrollInterval) clearInterval(scrollInterval);
+            if (scrollSpeed > 0) {
+                isScrolling = true;
+                scrollInterval = setInterval(() => window.scrollBy(0, scrollSpeed), 50 / scrollSpeed);
+            }
         }
 
         function stopScrolling() {
-            clearInterval(scrollInterval); // Detener el desplazamiento
+            clearInterval(scrollInterval);
+            isScrolling = false;
         }
 
-        function setSpeed(newSpeed) {
-            speed = newSpeed;
-            clearInterval(scrollInterval); // Detener el desplazamiento actual
-            startScrolling(); // Reiniciar con la nueva velocidad
+        function changeChordColor(color) {
+            document.querySelectorAll('.chords').forEach(chord => {
+                chord.style.color = color;
+            });
+            document.getElementById('color-dropdown').style.display = 'none';
         }
 
-        function toggleDropdown(menu) {
-            const dropdown = document.getElementById(`${menu}-dropdown`);
+        function toggleDropdown() {
+            const dropdown = document.getElementById('color-dropdown');
             dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
         }
 
-        function changeColor(color) {
-            document.getElementById('chords').style.color = color;
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.speed-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    if (button.dataset.speed) {
+                        if (isScrolling) stopScrolling();
+                        setScrollSpeed(button.dataset.speed);
+                    } else {
+                        toggleDropdown();
+                    }
+                });
+            });
 
-        // Iniciar el desplazamiento automáticamente
-        startScrolling();
+            // Disable auto-scroll on page load
+            window.onload = function() {
+                stopScrolling();
+            };
+        });
     </script>
 </body>
 </html>
