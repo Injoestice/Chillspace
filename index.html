@@ -4,50 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chillspace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Lexend', sans-serif;
-            background: url('your-8bit-background.png') no-repeat center center fixed;
+            background: url('logo.png') no-repeat center center fixed;
             background-size: cover;
             color: white;
-            text-align: center;
             margin: 0;
             padding: 0;
+            overflow: auto; /* Permite el desplazamiento libre */
         }
         header {
             padding: 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
         }
         img {
             max-width: 150px;
             margin-top: 20px;
         }
-        .container {
-            position: relative;
-            width: 80%;
-            margin: 0 auto;
-        }
         .song-section {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco pastel */
             padding: 20px;
-            margin-top: 20px;
+            margin: 30px auto;
+            width: 80%;
             border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
             position: relative;
+            text-align: left;
+            overflow: hidden;
+            color: black;
+        }
+        .lyrics {
+            margin-bottom: 20px;
+        }
+        .chords {
+            font-weight: bold;
+            color: #00bcd4; /* Default chord color */
+            display: inline-block;
+            margin-right: 5px;
         }
         .controls {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: white;
-            padding: 10px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             display: flex;
             justify-content: center;
             gap: 10px;
-            z-index: 1;
+            margin-top: 20px;
         }
         .controls button {
             background-color: black;
@@ -55,125 +56,114 @@
             border: none;
             padding: 10px;
             cursor: pointer;
+            border-radius: 5px;
         }
         .controls button.active {
             background-color: white;
             color: black;
         }
-        .chord {
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .color-box.selected {
+            border: 2px solid black;
+        }
+        #color-dropdown {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #color-dropdown div {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #ccc;
+            cursor: pointer;
             display: inline-block;
-            font-weight: bold;
         }
-        .highlight {
-            color: orange;
-        }
-        .highlight2 {
-            color: lightblue;
-        }
-        .highlight3 {
-            color: green;
-        }
-        .highlight4 {
-            color: brown;
-        }
-        .iframe-container {
-            margin-top: 20px;
-            margin-bottom: 40px;
-        }
-        .iframe-container iframe {
+        .fixed-container {
+            position: fixed;
+            bottom: 0;
             width: 100%;
-            max-width: 560px;
-            height: 315px;
+            background-color: rgba(0, 0, 0, 0.7);
+            text-align: center;
+            padding: 10px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .player {
+            width: 70%;
+            margin: 0 auto;
+        }
+        .player iframe {
+            width: 100%;
             border: none;
-            border-radius: 10px;
+            height: 50px;
+            max-width: 300px;
         }
     </style>
 </head>
 <body>
     <header>
         <img src="logo.png" alt="Chillspace Logo">
-        <h1>Chillspace - Música que inspira</h1>
+        <h1>Chillspace - Música que Inspira</h1>
     </header>
 
-    <div class="container">
-        <div class="controls">
-            <button id="scroll1" onclick="setScrollSpeed(1)" class="active">1</button>
-            <button id="scroll2" onclick="setScrollSpeed(2)">2</button>
-            <button id="scroll3" onclick="setScrollSpeed(3)">3</button>
-            <button id="stop" onclick="toggleScrolling()">Detener</button>
-            <select id="colorPicker" onchange="changeChordColor(event)">
-                <option value="highlight">Naranja</option>
-                <option value="highlight2">Celeste</option>
-                <option value="highlight3">Verde</option>
-                <option value="highlight4">Café</option>
-            </select>
+    <section class="song-section">
+        <h2>Fuji - Luis Alberto Spinetta</h2>
+        <div class="lyrics">
+            <p><strong>Estrofa:</strong></p>
+            <p><span class="chords">G</span> <span class="chords">C</span> <span class="chords">G</span> <span class="chords">C</span> <span class="chords">G</span></p>
+            <p>Hoy me voy a ir</p>
+            <p>buscando un lugar donde descansar</p>
+            <p>Dejo todo atrás</p>
+            <p><span class="chords">G</span> <span class="chords">C</span></p>
+            <p>y me voy a dejar llevar</p>
+            <p>por el viento que me lleva al mar</p>
+            <p><span class="chords">G</span> <span class="chords">C</span></p>
+            <p>Voy a ver el cielo</p>
+            <p><span class="chords">D</span> <span class="chords">Em</span> <span class="chords">C</span></p>
+            <p>y sentir el sol en mi piel</p>
+            <p><span class="chords">G</span> <span class="chords">C</span> <span class="chords">G</span></p>
+            <p><strong>Coro:</strong></p>
+            <p>Hoy me voy a ir</p>
+            <p>buscando un lugar donde descansar</p>
+            <p>Dejo todo atrás</p>
+            <p><span class="chords">G</span> <span class="chords">C</span></p>
+            <p>y me voy a dejar llevar</p>
+            <p>por el viento que me lleva al mar</p>
+            <p><span class="chords">G</span> <span class="chords">C</span></p>
+            <p>Voy a ver el cielo</p>
+            <p><span class="chords">D</span> <span class="chords">Em</span> <span class="chords">C</span></p>
+            <p>y sentir el sol en mi piel</p>
+            <p><span class="chords">G</span> <span class="chords">C</span> <span class="chords">G</span></p>
+            <p>Hoy me voy a ir</p>
+            <p>buscando un lugar donde descansar</p>
         </div>
+    </section>
 
-        <section class="song-section">
-            <h2>Aire de Churupaca</h2>
-            <pre id="lyrics">
-[Intro]
-Am   Dm   Am   Dm
-Am   Dm   Am   Dm
-
-[Verso 1]
-Am              Dm
-Aire de churupaca
-Am            Dm
-Voy a buscar, voy a encontrar
-Am            Dm
-El tiempo me llama
-Am             Dm
-Un fuego ardiente
-
-[Pre-Coro]
-C                G
-Un paisaje que no se olvida
-C                G
-En la tierra que se va
-C                G
-Un aire de churupaca
-Am            Dm
-Sigo aquí esperando
-
-[Coro]
-Am              Dm
-Aire de churupaca
-Am            Dm
-Voy a buscar, voy a encontrar
-Am            Dm
-El tiempo me llama
-Am             Dm
-Un fuego ardiente
-
-[Verso 2]
-Am              Dm
-Aire de churupaca
-Am            Dm
-Voy a buscar, voy a encontrar
-Am            Dm
-El tiempo me llama
-Am             Dm
-Un fuego ardiente
-
-[Puente]
-C                G
-Un paisaje que no se olvida
-C                G
-En la tierra que se va
-C                G
-Un aire de churupaca
-Am            Dm
-Sigo aquí esperando
-
-[Outro]
-Am   Dm   Am   Dm
-Am   Dm   Am   Dm
-            </pre>
-        </section>
-
-        <div class="iframe-container">
-            <iframe src="https://youtu.be/BO8dTUJy5nc?si=O75rCXxv9ojQBN-o" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <div class="fixed-container">
+        <div class="player">
+            <iframe src="https://www.youtube.com/embed/BO8dTUJy5nc?si=O75rCXxv9ojQBN-o" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <div class="controls">
+            <button class="speed-button" data-speed="1">1x</button>
+            <button class="speed-button" data-speed="2">2x</button>
+            <button class="speed-button" data-speed="3">3x</button>
+            <button id="color-dropdown-btn" class="speed-button">Color Acordes</button>
+            <div id="color-dropdown">
+                <div style="background-color: #00bcd4;" onclick="changeChordColor('#00bcd4')"></div>
+                <div style="background-color: #ff5722;" onclick="changeChordColor('#ff5722')"></div>
+                <div style="background-color: #4caf50;" onclick="changeChordColor('#4caf50')"></div>
+                <div style="background-color: #795548;" onclick="changeChordColor('#795548')"></div>
+            </div>
         </div>
     </div>
 
@@ -184,34 +174,62 @@ Am   Dm   Am   Dm
 
         function setScrollSpeed(speed) {
             scrollSpeed = speed;
-            document.querySelectorAll('.controls button').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`scroll${speed}`).classList.add('active');
-            if (isScrolling) {
-                startScrolling();
-            }
-        }
-
-        function toggleScrolling() {
-            if (isScrolling) {
-                clearInterval(scrollInterval);
-                isScrolling = false;
-                document.getElementById('stop').textContent = 'Desplazar';
-            } else {
-                startScrolling();
-                document.getElementById('stop').textContent = 'Detener';
-            }
+            document.querySelectorAll('.speed-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`.speed-button[data-speed="${speed}"]`).classList.add('active');
+            startScrolling();
         }
 
         function startScrolling() {
-            scrollInterval = setInterval(() => window.scrollBy(0, scrollSpeed), 100);
-            isScrolling = true;
+            if (scrollInterval) clearInterval(scrollInterval);
+            if (scrollSpeed > 0) {
+                isScrolling = true;
+                scrollInterval = setInterval(() => window.scrollBy(0, scrollSpeed), 50 / scrollSpeed);
+            }
         }
 
-        function changeChordColor(event) {
-            document.querySelectorAll('.chord').forEach(chord => {
-                chord.className = `chord ${event.target.value}`;
-            });
+        function stopScrolling() {
+            clearInterval(scrollInterval);
+            isScrolling = false;
         }
+
+        function changeChordColor(color) {
+            document.querySelectorAll('.chords').forEach(chord => {
+                chord.style.color = color;
+            });
+            document.getElementById('color-dropdown').style.display = 'none';
+        }
+
+        function toggleDropdown() {
+            const dropdown = document.getElementById('color-dropdown');
+            dropdown.style.display = dropdown.style.display === 'block'
+        ? 'none' : 'block';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.speed-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const speed = parseFloat(button.getAttribute('data-speed'));
+                    if (isScrolling) {
+                        stopScrolling();
+                        button.textContent = `${speed}x`;
+                    } else {
+                        setScrollSpeed(speed);
+                        button.textContent = `Stop`;
+                    }
+                });
+            });
+
+            document.getElementById('color-dropdown-btn').addEventListener('click', toggleDropdown);
+            document.querySelectorAll('.color-box').forEach(box => {
+                box.addEventListener('click', () => {
+                    document.querySelectorAll('.color-box').forEach(c => c.classList.remove('selected'));
+                    box.classList.add('selected');
+                    changeChordColor(box.style.backgroundColor);
+                });
+            });
+        });
     </script>
 </body>
 </html>
