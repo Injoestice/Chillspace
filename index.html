@@ -4,165 +4,204 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chillspace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Lexend', sans-serif;
             background: url('background.png') no-repeat center center fixed;
             background-size: cover;
             color: white;
-            text-align: center;
+            margin: 0;
+            padding: 0;
         }
         header {
             padding: 20px;
+            text-align: center;
         }
-        img {
-            max-width: 150px;
-            margin-top: 20px;
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
         }
         .song-section {
             background-color: rgba(0, 0, 0, 0.7);
             padding: 20px;
-            margin: 30px auto;
             width: 80%;
             border-radius: 15px;
-            text-align: left;
+            margin-bottom: 100px; /* Espacio para los botones fijos */
+            text-align: center;
+            position: relative;
         }
-        pre {
-            font-size: 1.2em;
-            margin: 0;
+        .lyrics {
+            margin: 20px 0;
+            white-space: pre-wrap; /* Mantener los espacios y saltos de línea */
         }
-        .chord {
-            color: orange; /* Color para el acorde */
+        .chords {
+            font-weight: bold; /* Acordes en negrita */
+            color: lightblue; /* Color predeterminado para acordes */
+            margin-bottom: 20px;
         }
-        .chord-alternate {
-            color: lightblue; /* Color alternativo para el acorde */
-        }
-        .controls {
-            margin: 10px 0;
-        }
-        .scroll-button, .color-button {
-            background-color: #4CAF50;
+        .color-button, .speed-button, .stop-button {
+            background-color: black;
             color: white;
             border: none;
             padding: 10px;
             cursor: pointer;
             margin: 5px;
+            border-radius: 5px;
         }
-        .color-button {
-            background-color: #2196F3; /* Azul para el botón de color de acordes */
+        .color-menu, .speed-menu {
+            margin-bottom: 10px;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            color: white;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        .dropdown-menu button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 5px;
+            cursor: pointer;
+        }
+        .dropdown-menu button:hover {
+            background-color: #575757;
+        }
+        .fixed-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
     <header>
-        <img src="logo.png" alt="Chillspace Logo">
+        <img src="logo.png" alt="Chillspace Logo" style="max-width: 150px;">
         <h1>Chillspace - Música que Inspira</h1>
     </header>
 
-    <section class="song-section">
-        <h2>Fuji - Luis Alberto Spinetta</h2>
-        <pre>
-            [Intro]
-            [D] [A] [Bm] [G]
-            
-            [Verse 1]
-            [D]           [A]
-            Y cuando la noche se ha ido
-            [Bm]           [G]
-            Todo se transforma en destellos
-            [D]           [A]
-            La vida se vuelve un suspiro
-            [Bm]           [G]
-            Y el tiempo se convierte en misterio
-            
-            [Chorus]
-            [G]           [D]
-            Fuji, tu nombre es como un eco
-            [Bm]           [A]
-            En la brisa que va creciendo
-            [G]           [D]
-            Fuji, en tus ojos veo el cielo
-            [Bm]           [A]
-            Reflejando todo lo que soñé
-            
-            [Verse 2]
-            [D]           [A]
-            Recuerdos de tiempos pasados
-            [Bm]           [G]
-            Flotan en el aire como hojas
-            [D]           [A]
-            El pasado se vuelve presente
-            [Bm]           [G]
-            Y el futuro se convierte en sueño
-            
-            [Chorus]
-            [G]           [D]
-            Fuji, tu nombre es como un eco
-            [Bm]           [A]
-            En la brisa que va creciendo
-            [G]           [D]
-            Fuji, en tus ojos veo el cielo
-            [Bm]           [A]
-            Reflejando todo lo que soñé
-            
-            [Bridge]
-            [D]           [A]
-            Y mientras la luna va cambiando
-            [Bm]           [G]
-            Y las estrellas se van apagando
-            [D]           [A]
-            Yo sigo esperando, soñando
-            [Bm]           [G]
-            Que el tiempo no se esté acabando
-            
-            [Chorus]
-            [G]           [D]
-            Fuji, tu nombre es como un eco
-            [Bm]           [A]
-            En la brisa que va creciendo
-            [G]           [D]
-            Fuji, en tus ojos veo el cielo
-            [Bm]           [A]
-            Reflejando todo lo que soñé
-            
-            [Outro]
-            [D] [A] [Bm] [G]
-            [D] [A] [Bm] [G]
-        </pre>
-        <div class="controls">
-            <label for="speed">Velocidad de desplazamiento:</label>
-            <select id="speed" class="scroll-button">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-            <button class="scroll-button" onclick="startScrolling()">Desplazar hacia abajo</button>
-            <button class="scroll-button" onclick="stopScrolling()">Detener desplazamiento</button>
-            <button class="color-button" onclick="changeChordColor()">Cambiar color de acordes</button>
+    <div class="container">
+        <section class="song-section">
+            <h2>Fuji de Spinetta</h2>
+            <div class="chords">
+                <!-- Acordes con color dinámico -->
+                <span id="chords">[G] [D] [Em] [C] [Am] [F] [B7]</span>
+            </div>
+            <div class="lyrics">
+                <!-- Letra completa de la canción Fuji -->
+                <pre>
+Intro:
+[G] [D] [Em] [C]
+
+Verso 1:
+[G]               [D]                [Em]          [C]
+Cuando se va la luz del sol de mi ventana
+[G]               [D]                [Em]          [C]
+Un mar de sombras se expande
+[Am]          [F]        [G]              [C]
+Y yo me quedo aquí, sin poder verte
+[Am]           [F]           [B7]          [Em]
+Aunque intente olvidar
+
+Estribillo:
+[G]             [D]                [Em]          [C]
+Aunque intente olvidar, aunque intente olvidar
+[G]             [D]                [Em]          [C]
+La luna alumbra más que el sol
+
+Verso 2:
+[Am]           [F]             [G]            [C]
+La luna, luna, la luna alumbra más que el sol
+[Am]           [F]              [B7]        [Em]
+La luna, luna, la luna
+[G]             [D]                [Em]          [C]
+Aunque intente olvidar
+
+Puente:
+[Am]           [F]           [G]        [C]
+Si me preguntas, yo te diré
+[Am]           [F]          [B7]     [Em]
+Que aquí estoy esperando
+[Am]           [F]           [G]        [C]
+Si me preguntas, yo te diré
+[Am]           [F]         [B7]      [Em]
+Que aquí estoy esperando
+
+Estribillo:
+[G]             [D]                [Em]          [C]
+Aunque intente olvidar, aunque intente olvidar
+[G]             [D]                [Em]          [C]
+La luna alumbra más que el sol
+[Am]           [F]           [G]        [C]
+La luna, luna, la luna
+                </pre>
+            </div>
+        </section>
+
+        <div class="fixed-buttons">
+            <div class="color-menu">
+                <button class="color-button" onclick="toggleDropdown('color')">Cambiar Color de Acordes</button>
+                <div id="color-dropdown" class="dropdown-menu">
+                    <button onclick="changeColor('lightblue')">Celeste</button>
+                    <button onclick="changeColor('orange')">Naranja</button>
+                    <button onclick="changeColor('green')">Verde</button>
+                    <button onclick="changeColor('brown')">Café</button>
+                </div>
+            </div>
+            <div class="speed-menu">
+                <button class="speed-button" onclick="toggleDropdown('speed')">Configurar Velocidad</button>
+                <div id="speed-dropdown" class="dropdown-menu">
+                    <button onclick="setSpeed(10)">1</button>
+                    <button onclick="setSpeed(7.5)">2</button>
+                    <button onclick="setSpeed(5)">3</button>
+                    <button onclick="setSpeed(2.5)">4</button>
+                    <button onclick="setSpeed(1)">5</button>
+                </div>
+            </div>
+            <button class="stop-button" onclick="stopScrolling()">Detener</button>
         </div>
-    </section>
+    </div>
 
     <script>
         let scrollInterval;
-        let chordColor = 'orange'; // Color actual de los acordes
+        let speed = 5; // Valor por defecto para la velocidad
 
         function startScrolling() {
-            const speed = document.getElementById('speed').value;
-            scrollInterval = setInterval(() => window.scrollBy(0, 1 * speed), 100);
+            scrollInterval = setInterval(() => window.scrollBy(0, speed), 50);
         }
 
         function stopScrolling() {
-            clearInterval(scrollInterval);
+            clearInterval(scrollInterval); // Detener el desplazamiento
         }
 
-        function changeChordColor() {
-            const chordsElements = document.querySelectorAll('.chord');
-            chordsElements.forEach((element) => {
-                element.style.color = element.style.color === 'orange' ? 'lightblue' : 'orange';
-            });
+        function setSpeed(newSpeed) {
+            speed = newSpeed;
+            clearInterval(scrollInterval); // Detener el desplazamiento actual
+            startScrolling(); // Reiniciar con la nueva velocidad
         }
+
+        function toggleDropdown(menu) {
+            const dropdown = document.getElementById(`${menu}-dropdown`);
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function changeColor(color) {
+            document.getElementById('chords').style.color = color;
+        }
+
+        // Iniciar el desplazamiento automáticamente
+        startScrolling();
     </script>
 </body>
 </html>
